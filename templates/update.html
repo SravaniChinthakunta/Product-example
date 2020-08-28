@@ -1,0 +1,25 @@
+{% extends 'common.html' %}
+{% block sravani %}
+    {% load static %}
+    <style>
+    .rows{
+        text-align: center;
+    }
+    </style>
+
+        <form action="{% url 'updateproduct' %}"method="post"  enctype="multipart/form-data">
+        {% csrf_token %}
+
+            <table class="table table-bordered table-dark" style="width: 400px" align="center">
+
+                <tr><th  class="rows"><input type="number" name="d1" required  value="{{value.idno }}" readonly></th></tr>
+                <tr><th class="rows"><input type="text" name="d2" required  value="{{value.Name }}"></th></tr>
+                <tr><th class="rows"><input type="number" name="d3" required  value="{{value.Price }}"></th></tr>
+                 <tr><th class="rows"><input type="number" name="d4" required  value="{{value.Quantity }}"></th></tr>
+                <tr><th class="rows">Picture:<input type="file" name="d5" required value="{{ value.Picture }}"></th></tr>
+                <tr><th  class="rows"><button type="submit"  class="btn btn-outline-warning">SUBMIT</button> </th></tr>
+
+        </table>
+            </form>
+
+{% endblock%}

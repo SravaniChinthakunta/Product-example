@@ -1,0 +1,84 @@
+
+{% extends 'common.html' %}
+{% block sravani %}
+    {% load static %}
+<style>
+.header{
+    font-family: "Times New Roman";
+    font-size: 60px;
+    text-align: center;
+}
+.rows{
+  text-align: center;
+}
+.viewpro{
+    text-align: center;
+
+}
+
+</style>
+    <h3></h3>
+
+
+    <h3 align="center">{% for x in messages %}
+            {{ x }}
+                {% endfor %}</h3>
+
+<table class="table table-bordered table-dark" style="width: 800px" align="center" >
+    <tr><th class="header"><u>SRAVANI MART</u><h5 style="color: cyan;font-family: Arial"><marquee>Your most unhappy customers are your greatest source of learning.....</marquee></h5></th>
+        <th class="header"><img src="{% static 'images/marttt.jpg' %}" width="140" height="140"></th></tr>
+    <tr>
+        <th colspan="2">
+
+            <form action="{% url 'saveproducts' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+            <table class="table table-bordered table-dark" style="width: 400px" align="center">
+    <tr><th  class="rows"><input type="text" name="p1" required placeholder="Name"></th></tr>
+    <tr><th  class="rows"><input type="text" name="p2" required placeholder="Price"></th></tr>
+    <tr><th class="rows"><input type="text" name="p3" required placeholder="Quantity"></th></tr>
+    <tr><th  class="rows">Picture:<input type="file" name="p4" required></th></tr>
+                <tr><th  class="rows">File:<input type="file" name="p5" required></th></tr>
+            <tr><th  class="rows"><button type="submit"  class="btn btn-outline-warning">SUBMIT</button> </th></tr>
+        </table>
+            </form>
+     </th></tr>
+
+
+    <table class="table table-bordered table-dark" style="width: 1000px" align="center">
+    {% if data %}
+        <tr><th class="viewpro">NO</th>
+    <th class="viewpro">NAME</th>
+    <th class="viewpro">PRICE</th>
+    <th class="viewpro">QUANTITY</th>
+    <th class="viewpro">IMAGE</th>
+    <th class="viewpro">UPDATE</th>
+    <th class="viewpro">DELETE</th>
+    <th class="viewpro">FILE</th>
+    <th class="viewpro">DOWNLOAD</th>
+
+        </tr>
+
+        {% for x in data %}
+            <tr>
+                <th class="viewpro">{{ x.idno }}</th>
+                <th class="viewpro">{{ x.Name }}</th>
+                <th class="viewpro">{{x.Price }}</th>
+
+                <th class="viewpro">{{ x.Quantity }}</th>
+                <th id="img" class="viewpro" ><img  class="rounded-circle" src="{{ x.Picture.url }}" width="100px" height="100px"></th>
+                <th class="viewpro"><a href="{% url 'update' %}?id={{x.idno}}"><img src="{% static 'images/up.jpg' %}" height="70px" width="70px"></a></th>
+
+                <th class="viewpro"><a href="{% url 'delete' %}?id={{ x.idno }}"><img src="{% static 'images/delete3.png' %}" height="60px" width="60px"></a> </th>
+                <th>{{ x.file }}</th>
+                <th class="viewpro"><a download="" href="{{ x.file }}"><img src="{% static 'images/doo.jpg' %}" height="80px" width="80px"></a> </th></tr>
+        {% endfor %}
+
+        {% else %}
+        <tr><th style="font-size: 50px;text-align: center;color: fuchsia;">Products not avilable</th></tr>
+
+    {% endif %}
+    </table>
+
+</table>
+
+{% endblock %}
